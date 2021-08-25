@@ -1,0 +1,80 @@
+---
+layout: post
+title:  "ltp를 통해 리눅스에서 신뢰성 테스트 진행하기"
+date:   2019-10-01
+last_modified_at: 2019-10-01
+categories: [linux]
+tags: [linux]
+---
+
+LTP 프로젝트 목표는 오픈 소스 커뮤니티에 테스트를 제공하여 Linux의 안정성, 견고성 및 시스템의 안정성을 검증하는 목적을 가집니다. 
+LTP test suit에는 Linux 커널 및 관련 기능을 테스트하기위한 도구 모음이 포함되어 있습니다.  
+이 프로젝트 의 목표는 테스트 자동화를 테스팅 활동 으로써  Linux 커널 및 시스템 라이브러리를 개선하는 것입니다. 
+
+
+1.시스템에 compile 및 가능한 상태로 되어 있어야 합니다.
+**현재의 이 테스트는 운영중인 시스템에서는 실행하지 않기를 권고하고 있습니다.**
+
+```sh
+# yum groupinstall "Development tools"
+
+....Output truncated....
+
+Install      86 Package(s)
+Upgrade       0 Package(s)
+
+Total download size: 77 M
+Installed size: 234 M
+Is this ok [y/N]:
+```
+
+2.LTP를 git 통해 clone을 합니다.
+
+```sh
+# git clone https://github.com/linux-test-project/ltp.git
+```
+
+3.clone 한 PATH로 가서 make autotools를 이용하여, 사용자 컴파일 환경 설정을 시작 합니다.
+
+```sh
+# cd ltp
+# make autotools
+# ./configure
+```
+
+4.저는 전체 테스트에 대해서 빌드를 시작 하겠습니다.
+
+```sh
+# make
+# make install
+```
+
+5.Build 완료 후, LTP가 설치된 디렉토리로 이동합니다.
+
+```sh
+$ cd /opt/ltp
+$ ./runltp
+```
+
+6.대표적인 시스템콜 테스트를 진행 합니다.
+아래와 같이 결과를 확인 할수 있습니다.
+
+```sh
+$ ./runltp -f syscalls
+....
+<<<test_end>>>
+INFO: ltp-pan reported some tests FAIL
+LTP Version: 20190930
+
+       ###############################################################
+
+            Done executing testcases.
+            LTP Version:  20190930
+       ###############################################################
+```
+
+LTP 뉴스그룹[ltp] 에 가입하여, 정기적인 정보를 받아보실 경우, 아래의 링크에서 subscription을 하면
+정보를 받아 볼수 있습니다.
+
+[ltp]: https://lists.linux.it/listinfo/ltp
+[ltphome]: https://github.com/linux-test-project/ltp
