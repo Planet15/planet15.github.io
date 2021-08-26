@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "mock를 이용하여 rockylinux 패키지 리빌드 체험 하기"
+title:  "mock를 이용하여 Rocky linux 패키지 리빌드 체험 하기"
 date:   2021-07-14
 last_modified_at: 2021-07-14
 categories: [linux]
