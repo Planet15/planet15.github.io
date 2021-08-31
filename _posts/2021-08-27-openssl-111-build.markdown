@@ -97,22 +97,7 @@ Resolving Dependencies
 ...
 Installed:
   devtoolset-8.x86_64 0:8.1-1.el7
-
-Dependency Installed:
-  devtoolset-8-binutils.x86_64 0:2.30-55.el7.2                         devtoolset-8-dwz.x86_64 0:0.12-1.1.el7
-  devtoolset-8-dyninst.x86_64 0:9.3.2-6.el7                            devtoolset-8-elfutils.x86_64 0:0.176-1.el7
-  devtoolset-8-elfutils-libelf.x86_64 0:0.176-1.el7                    devtoolset-8-elfutils-libs.x86_64 0:0.176-1.el7
-  devtoolset-8-gcc.x86_64 0:8.3.1-3.2.el7                              devtoolset-8-gcc-c++.x86_64 0:8.3.1-3.2.el7
-  devtoolset-8-gcc-gfortran.x86_64 0:8.3.1-3.2.el7                     devtoolset-8-gdb.x86_64 0:8.2-3.el7
-  devtoolset-8-libquadmath-devel.x86_64 0:8.3.1-3.2.el7                devtoolset-8-libstdc++-devel.x86_64 0:8.3.1-3.2.el7
-  devtoolset-8-ltrace.x86_64 0:0.7.91-1.el7                            devtoolset-8-make.x86_64 1:4.2.1-4.el7
-  devtoolset-8-memstomp.x86_64 0:0.1.5-5.el7                           devtoolset-8-oprofile.x86_64 0:1.3.0-2.el7
-  devtoolset-8-perftools.x86_64 0:8.1-1.el7                            devtoolset-8-runtime.x86_64 0:8.1-1.el7
-  devtoolset-8-strace.x86_64 0:4.24-4.el7                              devtoolset-8-systemtap.x86_64 0:3.3-2.el7
-  devtoolset-8-systemtap-client.x86_64 0:3.3-2.el7                     devtoolset-8-systemtap-devel.x86_64 0:3.3-2.el7
-  devtoolset-8-systemtap-runtime.x86_64 0:3.3-2.el7                    devtoolset-8-toolchain.x86_64 0:8.1-1.el7
-  devtoolset-8-valgrind.x86_64 1:3.14.0-16.el7                         libgfortran5.x86_64 0:8.3.1-2.1.1.el7
-
+...
 Complete!
 ```
 
@@ -120,9 +105,6 @@ Complete!
 ```sh
 # rpmbuild --rebuild openssl11-1.1.1g-3.el7.src.rpm
 ...
-```
-
-```sh
 Wrote: /root/rpmbuild/RPMS/x86_64/openssl11-1.1.1g-3.el7.x86_64.rpm
 Wrote: /root/rpmbuild/RPMS/x86_64/openssl11-1.1.1g-3.el7.x86_64.rpm
 Wrote: /root/rpmbuild/RPMS/x86_64/openssl11-devel-1.1.1g-3.el7.x86_64.rpm
