@@ -150,7 +150,9 @@ drwxr-xr-x 5 root root     119 Jul 14 17:38 ..
 -rw-rw-r-- 1 root root    1014 Jul 14 17:44 state.log
 ```
 
-참고한 사이트는[ref1], [ref2], [ref3] 입니다.
-[ref1]: https://github.com/rpm-software-management/mock/wiki 
-[ref2]: https://wiki.rockylinux.org/en/team/development/Mock_Build_Howto
-[ref3]: https://fedoraproject.org/wiki/Using_Mock_to_test_package_builds
+참고한 사이트는[mock], [Mock-Build-Howto], [Mock-test-package-build] 입니다.
+
+
+[mock]: https://github.com/rpm-software-management/mock/wiki 
+[Mock-Build-Howto]: https://wiki.rockylinux.org/en/team/development/Mock_Build_Howto
+[Mock-test-package-build]: https://fedoraproject.org/wiki/Using_Mock_to_test_package_builds
