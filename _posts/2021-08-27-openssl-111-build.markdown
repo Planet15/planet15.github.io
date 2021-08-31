@@ -8,9 +8,11 @@ tags: [linux]
 ---
 
 1. 빌드 테스트를 위해서 [openssl111] 를 다운 받아 와서 빌드를 시작 합니다.
+```sh
 검색 엔진에서 openssl11-1.1.1g-3.el7.src.rpm 를 검색 합니다. 
 src.rpm은 소스RPM이라는 뜻이며, 파일명에서 보시는 내용과 같이 el7 RedHat 
 Enterprise Linux 7 기반 이라는 사실을 알수 있습니다.
+```
 
 2. [rpmbuild] man 페이지 내용과 같이 rebuild 명령은 주어진 소스 패키지를 설치하고 준비, 컴파일 및 설치를 수행하는 옵셥 입니다.
 ```sh
@@ -101,7 +103,7 @@ Installed:
 Complete!
 ```
 
-11.  rebuild 옵셥을 통해 수행합니다.
+11. rebuild 옵셥을 통해 수행합니다.
 ```sh
 # rpmbuild --rebuild openssl11-1.1.1g-3.el7.src.rpm
 ...
@@ -124,7 +126,6 @@ Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.C4clCr
 ```
 
 12. 정상적으로 빌드 된것을 확인 할수 있습니다.
-
 ```sh
 /root/rpmbuild/RPMS/x86_64/openssl11-1.1.1g-3.el7.x86_64.rpm
 /root/rpmbuild/RPMS/x86_64/openssl11-1.1.1g-3.el7.x86_64.rpm
