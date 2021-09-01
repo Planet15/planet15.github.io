@@ -27,6 +27,7 @@ This often indicates a misspelling, missing collection, or incorrect module path
     - httpd
     - openqa-vnc
 ```
+
 3. 에러의 내용을 판단하여 firewalld 모듈을 포함하는 컬렉션이 ansible이 설치된 노드에 설치가 되어있지 않으며, ansible.posix.firewalld는 ansible.posix 컬렉션에 있습니다. [ansible.posix.firewalld]
 ```sh
 $ sudo ansible-galaxy collection install ansible.posix
@@ -42,6 +43,7 @@ Installing 'ansible.posix:1.3.0' to '/root/.ansible/collections/ansible_collecti
 $ sudo ansible-playbook init-rocky-openqa-developer-host.yml --check
 ...
 PLAY [Rocky OpenQA Runbook] ********************************************************************************************
-TASK [Gathering Facts] *************************************************************************************************ok: [localhost]
+TASK [Gathering Facts] *************************************************************************************************
+ok: [localhost]
 ...
 ```
