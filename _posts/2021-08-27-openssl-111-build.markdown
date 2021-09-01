@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "CentOS에서 opensl 1.1.1를 rpm 형태로 build 해서 사용하기"
+title:  "CentOS에서 openssl 버젼 1.1.1 를 rpm 형태로 build 해서 사용하기"
 date:   2021-08-27
 last_modified_at: 2021-08-27
 categories: [linux]
