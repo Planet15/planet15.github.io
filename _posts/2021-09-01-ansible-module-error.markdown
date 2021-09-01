@@ -18,9 +18,9 @@ This often indicates a misspelling, missing collection, or incorrect module path
 
 2. 아래와 같은 playbook 구문에서 에러가 나는 것을 확인 하였습니다.
 ```
-- name: Permit traffic for {{ item }} service
+- name: Permit traffic for ssh service
   ansible.posix.firewalld:
-    service: "{{ item }}"
+    service: ssh
     permanent: true
     state: enabled
   loop:
