@@ -17,7 +17,7 @@ This often indicates a misspelling, missing collection, or incorrect module path
 ```
 
 2. 아래와 같은 playbook 구문에서 에러가 나는 것을 확인 하였습니다.
-```yaml
+```sh
 - name: Permit traffic for {{ item }} service
   ansible.posix.firewalld:
     service: "{{ item }}"
@@ -40,17 +40,8 @@ Installing 'ansible.posix:1.3.0' to '/root/.ansible/collections/ansible_collecti
 4. 설치 후, 모듈 에러가 해결 된것을 확인 할수 있습니다.
 ```sh
 $ sudo ansible-playbook init-rocky-openqa-developer-host.yml --check
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match
-'all'
-
+...
 PLAY [Rocky OpenQA Runbook] ********************************************************************************************
 TASK [Gathering Facts] *************************************************************************************************ok: [localhost]
-
-TASK [Check if ansible cannot be run here] *****************************************************************************ok: [localhost]
-
-TASK [Verify if we can run ansible] ************************************************************************************ok: [localhost] => {
-    "changed": false,
-    "msg": "We are able to run on this node"
-}
 ...
 ```
