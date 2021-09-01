@@ -20,17 +20,19 @@ Error: Unable to find a match: ansible
 $ sudo dnf install epel-release -y
 Last metadata expiration check: 0:59:03 ago on Wed 01 Sep 2021 01:21:25 AM UTC.
 Dependencies resolved.
-======================================================================================================================== Package                         Architecture              Version                      Repository                 Size 
-========================================================================================================================Installing:
+======================================================================================================================== 
+Package                         Architecture              Version                      Repository                 Size 
+========================================================================================================================
+Installing:
  epel-release                    noarch                    8-10.el8                     extras                     22 k 
-
+...
 Transaction Summary
-========================================================================================================================Install  1 Package
-
-
+========================================================================================================================
+Install  1 Package
+...
 Installed:
   epel-release-8-10.el8.noarch
-
+...
 Complete!
 ```
 
@@ -41,8 +43,10 @@ Extra Packages for Enterprise Linux Modular 8 - x86_64                          
 Extra Packages for Enterprise Linux 8 - x86_64                                          4.4 MB/s |  10 MB     00:02    
 Last metadata expiration check: 0:00:03 ago on Wed 01 Sep 2021 02:21:43 AM UTC.
 Dependencies resolved.
-======================================================================================================================== Package                       Architecture    Version                                         Repository          Size 
-========================================================================================================================Installing:
+======================================================================================================================== 
+Package                       Architecture    Version                                         Repository          Size 
+========================================================================================================================
+Installing:
  ansible                       noarch          2.9.25-1.el8                                    epel                17 M 
 Installing dependencies:
  libsodium                     x86_64          1.0.18-2.el8                                    epel               162 k 
