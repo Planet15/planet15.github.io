@@ -28,7 +28,7 @@ analytics: # the Google Analytics property ID, e.g. UA-XXXXX-Y
 facebook: changan.song
 
 comments: true # enable comments
-disqus: disqus_8RuRAFtObG # disqus account
+disqus: csong # disqus account
 
 mathjax: true # Math support
 diagram: true # Diagrams support
