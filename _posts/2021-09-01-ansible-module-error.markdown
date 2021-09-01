@@ -10,16 +10,14 @@ tags: [ansible]
 1. 아래와 같이 playbook을 테스트 하려고 했으나, couldn't resolve module/action 에러가 발생하였습니다.
 ```sh
 $ sudo ansible-playbook init-rocky-openqa-developer-host.yml --check
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match
-'all'
-ERROR! couldn't resolve module/action 'ansible.posix.firewalld'. This often indicates a misspelling, missing collection, or incorrect module path.
-
-The error appears to be in '/home/vagrant/infrastructure/ansible/playbooks/tasks/openqa.yml': line 65, column 3, but maybe elsewhere in the file depending on the exact syntax problem.
+...
+ERROR! couldn't resolve module/action 'ansible.posix.firewalld'. 
+This often indicates a misspelling, missing collection, or incorrect module path.
+...
 ```
 
 2. 아래와 같은 playbook 구문에서 에러가 나는 것을 확인 하였습니다. 이에러는 
-```yaml
-...
+```
 - name: Permit traffic for {{ item }} service
   ansible.posix.firewalld:
     service: "{{ item }}"
@@ -28,7 +26,6 @@ The error appears to be in '/home/vagrant/infrastructure/ansible/playbooks/tasks
   loop:
     - httpd
     - openqa-vnc
-...
 ```
 3. 에러의 내용을 판단하여 firewalld 모듈을 포함하는 컬렉션이 ansible이 설치된 노드에 설치가 되어있지 않으며, ansible.posix.firewalld는 ansible.posix 컬렉션에 있습니다. [ansible.posix.firewalld]
 ```sh
