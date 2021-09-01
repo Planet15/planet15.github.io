@@ -17,8 +17,7 @@ This often indicates a misspelling, missing collection, or incorrect module path
 ```
 
 2. 아래와 같은 playbook 구문에서 에러가 나는 것을 확인 하였습니다.
-```yaml
-version: "2"
+```yml
 - name: Permit traffic for ssh service
   ansible.posix.firewalld:
     service: ssh
