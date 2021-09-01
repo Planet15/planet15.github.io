@@ -17,7 +17,7 @@ This often indicates a misspelling, missing collection, or incorrect module path
 ```
 
 2. 아래와 같은 playbook 구문에서 에러가 나는 것을 확인 하였습니다.
-~~~
+```
 - name: Permit traffic for {{ item }} service
   ansible.posix.firewalld:
     service: "{{ item }}"
@@ -26,7 +26,8 @@ This often indicates a misspelling, missing collection, or incorrect module path
   loop:
     - httpd
     - openqa-vnc
-~~~
+
+```
 
 3. 에러의 내용을 판단하여 firewalld 모듈을 포함하는 컬렉션이 ansible이 설치된 노드에 설치가 되어있지 않으며, ansible.posix.firewalld는 ansible.posix 컬렉션에 있습니다. [ansible.posix.firewalld]
 ```sh
