@@ -7,8 +7,7 @@ categories: [linux]
 tags: [linux]
 ---
 
-1. Rocky Linux 의 기본 리파지토리에는 ansible 패키지를 제공하고 있지 않습니다.
-   따라서 아래와 같은 에러가 발생 합니다.
+1. Rocky Linux 의 기본 리파지토리에는 ansible 패키지를 제공하고 있지 않습니다. 따라서 아래와 같은 에러가 발생 합니다.
 ```sh
 $ sudo yum install ansible
 Last metadata expiration check: 0:58:30 ago on Wed 01 Sep 2021 01:21:25 AM UTC.
@@ -16,8 +15,7 @@ No match for argument: ansible
 Error: Unable to find a match: ansible
 ```
 
-2.  EPEL 리파지토리에서 설치하면 ansible 패키지를 설치할 수 있으며, 
-    다른 종속성은 기본 repos와 appstream 을 통해 해결이 가능합니다.
+2.  EPEL 리파지토리에서 설치하면 ansible 패키지를 설치할 수 있으며, 다른 종속성은 기본 repos와 appstream 을 통해 해결이 가능합니다.
 ```sh
 $ sudo dnf install epel-release -y
 Last metadata expiration check: 0:59:03 ago on Wed 01 Sep 2021 01:21:25 AM UTC.
@@ -68,22 +66,7 @@ Installing weak dependencies:
  python3-paramiko              noarch          2.4.3-1.el8                                     epel               289 k 
 Enabling module streams:
  python36                                      3.6
-
-Transaction Summary
-========================================================================================================================Install  19 Packages
 ...
-Installed:
-  ansible-2.9.25-1.el8.noarch                          libsodium-1.0.18-2.el8.x86_64
-  python3-babel-2.5.1-5.el8.noarch                     python3-bcrypt-3.1.6-2.el8.1.x86_64
-  python3-cffi-1.11.5-5.el8.x86_64                     python3-cryptography-3.2.1-4.el8.x86_64
-  python3-jinja2-2.10.1-2.el8_0.noarch                 python3-jmespath-0.9.0-11.el8.noarch
-  python3-markupsafe-0.23-19.el8.x86_64                python3-paramiko-2.4.3-1.el8.noarch
-  python3-pip-9.0.3-19.el8.rocky.noarch                python3-ply-3.9-9.el8.noarch
-  python3-pyasn1-0.3.7-6.el8.noarch                    python3-pycparser-2.14-14.el8.noarch
-  python3-pynacl-1.3.0-5.el8.x86_64                    python3-pytz-2017.2-9.el8.noarch
-  python3-setuptools-39.2.0-6.el8.noarch               python36-3.6.8-2.module+el8.4.0+597+ddf0ddea.x86_64
-  sshpass-1.06-9.el8.x86_64
-
 Complete!
 ```
 
