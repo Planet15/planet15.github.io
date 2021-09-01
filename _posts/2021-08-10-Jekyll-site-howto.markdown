@@ -32,6 +32,7 @@ test01.github.io
 {% endhighlight %}
 
 7.복사된 후 바꿔야 될 내용(_config.yml)을 수정 합니다.
+{% highlight yaml %}
 title: 페이지의 제일 상위에 표시되는 내용입니다.
 email: 저자의 이메일을 기입합니다.
 keywords: 관심사 부분이며 대괄호 안에 넣으며 다수인 경우 쉼표로 나눕니다.
@@ -39,6 +40,8 @@ baseutl: 만약 다른 디렉토리에서 정보를 읽는 경우라면 디렉�
 url: https://test01.github.io 로 명시 하겠습니다.
 domain: 현재 저는 github.io로 표기 하였습니다.
 language: 언어 지원 부분이며 ko로 설정 합니다.
+{% endhighlight %}
+
 {% highlight yaml %}
 title: Your title
 email: your-email@example.com
