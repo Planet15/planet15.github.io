@@ -15,6 +15,10 @@ Jun 22 16:31:49 hostname kernel: kernel: connection3:0: ping timeout of 5 secs e
 Jun 22 16:31:50 hostname kernel: [3011710.723336] connection3:0: detected conn error (1022)
 ```
 
+session->id 의 값은 3,  conn->id 의 값은 0 
+error 는 1022 이며  error code 내용은 ISCSI_ERR_NOP_TIMEDOUT: A NOP has timed out
+conn->state는 3 이라는 값을 확인 할수 있다.
+
 
 ```c
 open-iscsi/usr/initiator.c
@@ -42,6 +46,65 @@ static void session_conn_error(void *data)
 	}
 }
 ```
+
+
+```sh
+/include/scsi/iscsi_if.h 에 명시된 내용과 같이 iSCSI 에러는 1000 부터 시작이며
+ISCSI_ERR_NOP_TIMEDOUT 는 1000+22=1022 즉 ISCSI_ERR_BASE + ISCSI_ERR_NOP_TIMEDOUT 
+를 뜻하는 것을 알수 있다.
+```
+
+```sh
+state의 값은iscsi_conn_state에 정의된  ISCSI_CONN_STATE_LOGGED_IN이며
+ISCSI initiator이 target에 로그인할때 발생된 에러를 의미한다.
+```
+
+```c
+/include/scsi/iscsi_if.h
+<snip>
+#define ISCSI_ERR_BASE                  1000
+<snip>
+enum iscsi_err {
+        ISCSI_OK                        = 0,
+
+        ISCSI_ERR_DATASN                = ISCSI_ERR_BASE + 1,
+        ISCSI_ERR_DATA_OFFSET           = ISCSI_ERR_BASE + 2,
+        ISCSI_ERR_MAX_CMDSN             = ISCSI_ERR_BASE + 3,
+        ISCSI_ERR_EXP_CMDSN             = ISCSI_ERR_BASE + 4,
+        ISCSI_ERR_BAD_OPCODE            = ISCSI_ERR_BASE + 5,
+        ISCSI_ERR_DATALEN               = ISCSI_ERR_BASE + 6,
+        ISCSI_ERR_AHSLEN                = ISCSI_ERR_BASE + 7,
+        ISCSI_ERR_PROTO                 = ISCSI_ERR_BASE + 8,
+        ISCSI_ERR_LUN                   = ISCSI_ERR_BASE + 9,
+        ISCSI_ERR_BAD_ITT               = ISCSI_ERR_BASE + 10,
+        ISCSI_ERR_CONN_FAILED           = ISCSI_ERR_BASE + 11,
+        ISCSI_ERR_R2TSN                 = ISCSI_ERR_BASE + 12,
+        ISCSI_ERR_SESSION_FAILED        = ISCSI_ERR_BASE + 13,
+        ISCSI_ERR_HDR_DGST              = ISCSI_ERR_BASE + 14,
+        ISCSI_ERR_DATA_DGST             = ISCSI_ERR_BASE + 15,
+        ISCSI_ERR_PARAM_NOT_FOUND       = ISCSI_ERR_BASE + 16,
+        ISCSI_ERR_NO_SCSI_CMD           = ISCSI_ERR_BASE + 17,
+        ISCSI_ERR_INVALID_HOST          = ISCSI_ERR_BASE + 18,
+        ISCSI_ERR_XMIT_FAILED           = ISCSI_ERR_BASE + 19,
+        ISCSI_ERR_TCP_CONN_CLOSE        = ISCSI_ERR_BASE + 20,
+        ISCSI_ERR_SCSI_EH_SESSION_RST   = ISCSI_ERR_BASE + 21,
+        ISCSI_ERR_NOP_TIMEDOUT          = ISCSI_ERR_BASE + 22,
+};
+<snip>
+enum iscsi_conn_state {
+        ISCSI_CONN_STATE_FREE,               // 0
+        ISCSI_CONN_STATE_XPT_WAIT,           // 1
+        ISCSI_CONN_STATE_IN_LOGIN,           // 2
+        ISCSI_CONN_STATE_LOGGED_IN,          // 3
+        ISCSI_CONN_STATE_IN_LOGOUT,          // 4
+        ISCSI_CONN_STATE_LOGOUT_REQUESTED,   // 5
+        ISCSI_CONN_STATE_CLEANUP_WAIT,       // 6
+};
+<snip>
+```
+
+이후 커널에서도time out에 대한 메세지를 력 하였으며, 시간 및 경과 
+시간에 대해서 파악이 가능하다.
 
 ```c
 ⁠drivers/scsi/libiscsi.c
