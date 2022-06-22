@@ -47,17 +47,12 @@ static void session_conn_error(void *data)
 }
 ```
 
-
-```sh
 /include/scsi/iscsi_if.h 에 명시된 내용과 같이 iSCSI 에러는 1000 부터 시작이며
 ISCSI_ERR_NOP_TIMEDOUT 는 1000+22=1022 즉 ISCSI_ERR_BASE + ISCSI_ERR_NOP_TIMEDOUT 
 를 뜻하는 것을 알수 있다.
-```
 
-```sh
 state의 값은iscsi_conn_state에 정의된  ISCSI_CONN_STATE_LOGGED_IN이며
 ISCSI initiator이 target에 로그인할때 발생된 에러를 의미한다.
-```
 
 ```c
 /include/scsi/iscsi_if.h
