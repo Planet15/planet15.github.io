@@ -9,7 +9,7 @@ tags: [linux]
 
 rpm DB가 깨어진 상태와 복구가 필요한 테스트가 필요하여 시나리오를 구성 해보았다.
 
-1. 먼저 간단히 rpm DB를 아래와 같이 깨어진 상태를 만든다.
+1.먼저 간단히 rpm DB를 아래와 같이 깨어진 상태를 만든다.
    이미 깨어진 상태라면 이 과정은 생략 한다.
 
 ```sh
@@ -19,7 +19,7 @@ rpm DB가 깨어진 상태와 복구가 필요한 테스트가 필요하여 시�
 # cat /dev/null > __db.003 
 ```
 
-2. 이후 아래와 같이 yum check-update 명령을 사용 하면 Error: rpmdb open failed
+2.이후 아래와 같이 yum check-update 명령을 사용 하면 Error: rpmdb open failed
 에러 메세지가 확인이 가능하다.
 
 ```sh
@@ -31,7 +31,7 @@ CRITICAL:yum.main:
 Error: rpmdb open failed
 ```
 
-3. rpm --rebuilddb 명령을사용하여 복구를 시도 한다. -vv 옵션을 통해 복구 과정을 확인 가능하다.
+3.rpm --rebuilddb 명령을사용하여 복구를 시도 한다. -vv 옵션을 통해 복구 과정을 확인 가능하다.
 
 ```sh
 # rpm --rebuilddb -vv
@@ -62,7 +62,7 @@ D: closed db index /var/lib/rpmrebuilddb.1646/Packages
 D: closed db environment /var/lib/rpmrebuilddb.1646
 ```
 
-4. 최종적으로yum clean all을 한후, yum check-update 를 확인하여 복구된 rpm DB를 확인한다.
+4.최종적으로yum clean all을 한후, yum check-update 를 확인하여 복구된 rpm DB를 확인한다.
 
 ```sh
 # yum clean all
