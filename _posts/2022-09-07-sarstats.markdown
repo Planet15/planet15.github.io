@@ -1,0 +1,152 @@
+---
+layout: post
+title: "sar 와 sarstats 에 대한 사용법"
+date: 2022-09-07
+last_modified_at: 2022-09-07
+categories: [linux]
+tags: [linux]
+---
+
+OL(Oracle Linux), RHEL(Red Hat Enterprise Linux), Rocky Linux, CentOS stream
+그외 다른 배포판에서도 현재까지 시스템 모니터링 프로그램인
+sar (System Activity Report)를 사용하며, 성능 이슈 및 시스템의 문제 상황을
+파악할때 도움이 된다.
+
+최소설치시 포함 되어 있지 않으며, 아래와 같이 설치를 하면 사용이 가능하다.
+
+```sh
+# yum install sysstat -y
+<snip>
+======================================================================================================================================
+ Package                       Arch                 Version                                            Repository                Size
+======================================================================================================================================
+Installing:
+ sysstat                       x86_64               10.1.5-19.0.3.el7                                  ol7_latest               316 k
+Installing for dependencies:
+ lm_sensors-libs               x86_64               3.4.0-8.20160601gitf9185e5.0.1.el7                 ol7_latest                41 k
+
+Transaction Summary
+======================================================================================================================================
+Install  1 Package (+1 Dependent package)
+<snip>
+  Installing : lm_sensors-libs-3.4.0-8.20160601gitf9185e5.0.1.el7.x86_64                                                          1/2
+  Installing : sysstat-10.1.5-19.0.3.el7.x86_64                                                                                   2/2
+  Verifying  : sysstat-10.1.5-19.0.3.el7.x86_64                                                                                   1/2
+  Verifying  : lm_sensors-libs-3.4.0-8.20160601gitf9185e5.0.1.el7.x86_64                                                          2/2
+
+Installed:
+  sysstat.x86_64 0:10.1.5-19.0.3.el7
+
+Dependency Installed:
+  lm_sensors-libs.x86_64 0:3.4.0-8.20160601gitf9185e5.0.1.el7
+
+Complete!
+```
+
+시스템모니터링데이터는 상시수집이 필요하며, cron을 통해 아래와 같이 수집을 한다.
+먼저, SADC_OPTIONS 옵션에서 SADC_OPTIONS=" -S Disk" 디스크만 수집하는 내용에서
+수집가능한 전체 metric를 수집한다.
+
+```sh
+# cat /etc/sysconfig/sysstat
+
+
+# sysstat-10.1.5 configuration file.
+
+# How long to keep log files (in days).
+# If value is greater than 28, then log files are kept in
+# multiple directories, one for each month.
+HISTORY=28
+
+# Compress (using gzip or bzip2) sa and sar files older than (in days):
+COMPRESSAFTER=31
+
+# Parameters for the system activity data collector (see sadc manual page)
+# which are used for the generation of log files.
+SADC_OPTIONS=" -S XALL"
+
+# Compression program to use.
+ZIP="bzip2"
+
+```
+
+이후기본값은 두번째 줗에 */10 10분 마다 한번씩 수집이지만
+좀더 정확한 성능metric을 파악하기 위해 */1 1분 마다 한번씩으로
+수집한다.
+
+```sh
+
+# cat /etc/cron.d/sysstat
+
+
+# Run system activity accounting tool every 10 minutes
+*/1 * * * * root /usr/lib64/sa/sa1 1 1
+# 0 * * * * root /usr/lib64/sa/sa1 600 6 &
+# Generate a daily summary of process accounting at 23:53
+53 23 * * * root /usr/lib64/sa/sa2 -A
+
+```
+
+설정 후에 시스템 모니터링 데이터는 /var/log/sa 아래의 디렉토리에
+파일로 저장이 된다.
+
+
+하지만 일반적으로 sar 데이터는 시간별로 나와 있으며, 수치만으로 눈으로 보기에
+쉽지 않다.
+
+
+
+일반적은 sar 데이터 는 아래와 같이 표기 된다. 
+먼저 cpu 관련 시스템 모니터링 데이터는 아래와 같다.
+
+/var/log/sa에수집이 얼마 안된 경우 sa 접두어로표기된  파일이 되어 있으며
+이파일을 확인 하려는 경우 확인 되지 않는다. sar 접두어로 표기된 파일은 
+편집기를 열어서 확인이 가능하다.
+
+sa 접두어로 표기된 파일은 현재 시스탬 모니터링에 대한 raw 데이터 이며, 만약 확인 하기를 원하는 경우
+변환 과정이 필요 하다.
+
+```sh
+LC_TIME=POSIX sar -A -t -f sa27 > sar27
+
+```
+
+
+```sh
+Linux 5.4.17-2102.201.3.el7uek.x86_64 (localhost.localdomain)   09/07/22        _x86_64_        (1 CPU)
+
+10:40:01        CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+10:50:01        all      0.00      0.00      0.02      0.32      0.00      0.06      0.02      0.00      0.00     99.58
+10:50:01          0      0.00      0.00      0.02      0.32      0.00      0.06      0.02      0.00      0.00     99.58
+10:52:01        all      0.03      0.00      0.06      0.03      0.00      0.11      0.04      0.00      0.00     99.74
+10:52:01          0      0.03      0.00      0.06      0.03      0.00      0.11      0.04      0.00      0.00     99.74
+10:53:01        all      0.02      0.00      0.05      0.02      0.00      0.07      0.02      0.00      0.00     99.83
+10:53:01          0      0.02      0.00      0.05      0.02      0.00      0.07      0.02      0.00      0.00     99.83
+10:54:01        all      0.02      0.00      0.02      0.00      0.00      0.08      0.03      0.00      0.00     99.85
+10:54:01          0      0.02      0.00      0.02      0.00      0.00      0.08      0.03      0.00      0.00     99.85
+10:55:01        all      0.02      0.00      0.03      0.02      0.00      0.10      0.02      0.00      0.00     99.82
+10:55:01          0      0.02      0.00      0.03      0.02      0.00      0.10      0.02      0.00      0.00     99.82
+10:56:01        all      0.00      0.00      0.03      0.00      0.00      0.08      0.03      0.00      0.00     99.85
+10:56:01          0      0.00      0.00      0.03      0.00      0.00      0.08      0.03      0.00      0.00     99.85
+10:57:01        all      0.02      0.00      0.02      0.00      0.00      0.10      0.03      0.00      0.00     99.83
+10:57:01          0      0.02      0.00      0.02      0.00      0.00      0.10      0.03      0.00      0.00     99.83
+10:58:01        all      0.02      0.00      0.03      0.00      0.00      0.10      0.03      0.00      0.00     99.82
+10:58:01          0      0.02      0.00      0.03      0.00      0.00      0.10      0.03      0.00      0.00     99.82
+Average:        all      0.01      0.00      0.03      0.18      0.00      0.08      0.02      0.00      0.00     99.68
+Average:          0      0.01      0.00      0.03      0.18      0.00      0.08      0.02      0.00      0.00     99.68
+```
+
+지금은 데이터가 많지 않기 때문에 눈으로 쉽게 확인이 가능하지만 하루 단위일 경우 
+파악이 쉽지는 않다.
+
+하지만 Github의오픈소스 프로젝트 중 아래의 사이트를 찾았다.
+https://github.com/mbaldessari/sarstats
+
+간단히 Fedora34 에서 OL (6,7,8), RHEL (6,7,8) , Rocky Linux 8 에서 수집된 sar 데이터를 가져와 아래와 같이 변환 하면
+쉽게 시스템 모니터링 데이터를 그래프와 함께 pdf 파일로 출력 해준다.
+
+```sh
+# sadf -c sa27 > sa27_new
+# LC_TIME=POSIX sar -A -t -f sa27_new > sar27
+```
+
