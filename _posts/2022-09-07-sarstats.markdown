@@ -150,3 +150,6 @@ https://github.com/mbaldessari/sarstats
 # LC_TIME=POSIX sar -A -t -f sa27_new > sar27
 ```
 
+변환된 예제는 아래 사이트에서 확인이 가능하다.
+https://acksyn.org/software/sarstats/sar19.pdf
+
