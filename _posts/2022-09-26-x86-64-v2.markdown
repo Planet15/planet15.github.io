@@ -1,0 +1,56 @@
+---
+layout: post
+title: "Virtual Box에서Fatal glibc error: CPU dose not support x864-64-v2 에러 해결"
+date: 2022-09-26
+last_modified_at: 2022-09-26
+categories: [linux]
+tags: [linux]
+---
+
+현재 가상화 플랫폼으로 사용중인 버전 VirtualBox 6.1.36 r152435 에서
+OL(Oracle Linux) 9.0, RHEL 9.0, Rocky Linux 9.0 을 설치 하면서
+설치하는 단계에서 다음과 같은 에러가 발생 하였다.
+
+```sh
+Fatal glibc error: CPU does not support x86-64-v2 
+[ 4.563522] Kernel panic - not syncing: Attempted to kill init! exitcode=0x00007f00 
+[ 4.564257] CPU: 0 PID: 1 Comm: init Not tainted 5.14.0-70.13.1.e19_0.x86_64 #1 
+[ 4.564963] Hardware name: innotek GmbH UirtualBox/UirtualBox, BIOS UirtualBox 12/01/2006 
+[ 4.565736] Call Trace: 
+[ 4.565981]   dump_stack_lvl+0x34/0x44 
+[ 4.566332]   panic+0x102/0x2d4 
+[ 4.566624]   do_exit.cold+0x87/0x9f 
+[ 4.566969]   do_group_exit+0x33/0xa0 
+[ 4.567313]   x64_sys_exit_group+0x14/0x20 
+[ 4.567709]   do_syscall_64+0x3b/Ox90 
+[ 4.568059]   entry_SYSCALL_64_after_hwframe+0x44/0xae 
+[ 4.568539] RIP: 0033:0x7f0aa3cea171 
+[ 4.568896] Code: c3 Of if 84 00 00 00 00 00 f3 Of le fa be e7 00 00 00 ba 3c 00 00 00 eb Od 89 dO Of 05 48 3d 00 10 ff ff 77 lc £4 89 10 Of 05 <48> 3d 00 ff ff 76 e7 £7 d8 89 05 5f 00 01 00 eb dd Of if 44 00 
+[ 4.570689] RSP: 002b:00007ffc034fd968 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7 
+[ 4.571400] RAX: ffffffffffffffda RBX: 00007f0aa3ce4e10 RCX: 00007f0aa3cea171 
+[ 4.572088] RDX: 000000000000003c BSI: 00000000000000e7 RDI: 000000000000007f 
+[ 4.572793] RBP: 000055b9c1340040 ROB: 00007ffc034fd4d9 R09: 0000000000000000 
+[ 4.573462] R10: 00000000ffffffff R11: 0000000000000246 R12: 000000000000000d 
+[ 4.574139] R13: 0000000000000001 R14: 0000000000000001 R15: 0000000000000001 
+[ 4.575743] Kernel Offset: Oxec00000 from Oxffffffff81000000 (relocation range: Oxffffffff80000000-Oxffffffffbfffffff) 
+[ 4.576790] ---[ end Kernel panic - not syncing: Attempted to kill mitt exitcode=0x00007f00 ]---
+```
+
+현재 hostcpu는 AMD Ryzen 5 PRO 4650G을 사용중에 있으며, 현재의 host 에서 가상화로제공중인 
+cpu 가 x86-64-v2 를 지원하지 못하기 때문에 발생 하는 에러이다.
+
+따라서 현재의 이슈에 대해서 workaround를 하기 위해 다음과 같이 셋팅을 하였다.
+기존의 가상머신과 새로 생성하는 가상머신 동일한 과정을 수행 한다.
+
+```sh
+ Oracle VM VirtualBox 실행
+ Oracle VM VirtualBox 관리자선택 
+ 해당가상머신 선택 
+ 시스템 선택 
+ 가속선택 
+ 반가상화인터페이스
+ Hyper-V 선택
+```
+
+이후 부팅에 문제가 없는 것을확인 하였다.
+
