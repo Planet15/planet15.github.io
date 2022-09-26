@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Virtual Box에서Fatal glibc error: CPU dose not support x864-64-v2 에러 해결"
+title: "Virtual Box에서Fatal glibc error: CPU dose not support x86-64-v2 에러 해결"
 date: 2022-09-26
 last_modified_at: 2022-09-26
 categories: [linux]
