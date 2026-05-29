@@ -18,6 +18,21 @@ debuginfo RPM, source SRPM 이름이 달라질 수 있다. 이 과정을 매번 
 
 이를 자동화 하기 위해 [prepare_vmcore_env.sh][prepare_vmcore_env] 스크립트를 사용할 수 있다.
 
+## 스크립트 위치
+
+스크립트는 다음 GitHub repository 에서 확인할 수 있다.
+
+```sh
+https://github.com/Planet15/tools/blob/main/prepare_vmcore_env.sh
+```
+
+서버에서 바로 내려받아 사용하려면 raw 파일을 다운로드 한다.
+
+```sh
+curl -fsSL -o prepare_vmcore_env.sh https://raw.githubusercontent.com/Planet15/tools/main/prepare_vmcore_env.sh
+chmod +x prepare_vmcore_env.sh
+```
+
 ## 동작 개요
 
 `prepare_vmcore_env.sh` 는 기본적으로 `/var/crash` 아래에서 가장 최근의
